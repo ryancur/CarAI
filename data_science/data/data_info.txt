@@ -1,0 +1,200 @@
+Dataset: vehicles.csv
+Location: raw_data
+Date: 5/1/23
+
+Shape:
+    Columns:            26
+    Rows:               426,880
+
+Null Values:
+    id                  0
+    url                 0
+    region              0
+    region_url          0
+    price               0
+    year                1205
+    manufacturer        17646
+    model               5277
+    condition           174104
+    cylinders           177678
+    fuel                3013
+    odometer            4400
+    title_status        8242
+    transmission        2556
+    VIN                 161042
+    drive               130567
+    size                306361
+    type                92858
+    paint_color         130203
+    image_url           68
+    description         70
+    county              426880
+    state               0
+    lat                 6549
+    long                6549
+    posting_date        68
+
+Columns:
+    ['id',
+    'url',
+    'region',
+    'region_url',
+    'price',
+    'year',
+    'manufacturer',
+    'model',
+    'condition',
+    'cylinders',
+    'fuel',
+    'odometer',
+    'title_status',
+    'transmission',
+    'VIN',
+    'drive',
+    'size',
+    'type',
+    'paint_color',
+    'image_url',
+    'description',
+    'county',
+    'state',
+    'lat',
+    'long',
+    'posting_date']
+
+Number Unique Values Per Column:
+    id                  426880
+    url                 426880
+    region              404
+    region_url          413
+    price               15655
+    year                114
+    manufacturer        42
+    model               29667
+    condition           6
+    cylinders           8
+    fuel                5
+    odometer            104870
+    title_status        6
+    transmission        3
+    VIN                 118264
+    drive               3
+    size                4
+    type                13
+    paint_color         12
+    image_url           241899
+    description         360911
+    county              0
+    state               51
+    lat                 53181
+    long                53772
+    posting_date        381536
+
+Keep Columns:
+    y: price
+    
+    x: 
+        year 
+        manufacturer
+        model
+        condition
+        cylinders
+        fuel
+        odometer (only numeric column - create buckets for every 10,000 miles)
+        title_status
+        transmission
+        drive 
+        type 
+        paint_color
+
+Data Notes:
+    - keep from 2010 - 2020 (last 10 years of data in the dataset)
+    - 303108 -> 71360
+    - need to set a lower threshold on car price: 500
+        - number of rows: 66436
+    - drop duplicates
+        - new number of rows: 40148
+        - number of unique manufacturers: 40 (unchanged)
+        - number of unique models: 6540 
+    - there are some duplicate but misspelled models - can consolidate
+    - there is a dependency between manufacturer and model 
+        - combine manufacturer name with model name to make the features more independent
+    - build out the sparse matrix in the data processing script to keep model specific
+
+Data Notes (5-3-23):
+    - created a new dataset for the model
+    - cleaned some models that made no sense - more cleaning needed
+    - left manufacturer and model separated for now
+    - Data Stats:
+        Number of Rows:  92099
+        Number of columns:  5
+        Columns:  ['price', 'year', 'manufacturer', 'model', 'paint_color']
+        Number of Uniques Per Column:
+        price           10798
+        year               13
+        manufacturer       40
+        model            1098
+        paint_color        12
+
+Modeling Notes:
+    - Test1:
+        - removed car 'model' from the data because the initial run didn't converge
+        - Linear Regression:
+            - Train RMSE: 6965.88628853231
+            - Test RMSE: 37139103077641.58
+        - Gaussian Naive Bayes:
+            - Train RMSE: 9748.634041564475
+            - Test RMSE: 11351.994383677635
+        - Random Forest:
+            - Train RMSE: 2450.1638154019784
+            - Test RMSE: 6339.027480976899
+        - SVM
+            - Train RMSE: 13804.486555285834
+            - Test RMSE: 13863.724022599914
+        - Price Data:
+            count     40148.000000
+            mean      17920.870778
+            std       13247.082947
+            min         537.000000
+            25%        8950.000000
+            50%       13995.000000
+            75%       22999.000000
+            max      195000.000000
+        - Notes:
+            - consider removing any manufacturers below a threshold
+            - consider going through and trying to find a pattern to the model column to reduce the unique models to help with convergence
+    - Test2:
+        - reduced the car models down to the first word in the string with result: 6000+ -> 966 unique model values
+        - model now converges
+        - all models are being run in their default states with seed 42
+        - Linear Regression:
+            - Train RMSE: 5893.199444136258
+            - Test RMSE: 211653061465306.84
+        - Gaussian Naive Bayes:
+            - Train RMSE: 8849.85856476544
+            - Test RMSE: 10719.89367765716
+        - Random Forest:
+            - Train RMSE: 2214.6949990106605
+            - Test RMSE: 6006.795135425452
+        - SVM
+            - Train RMSE: 
+            - Test RMSE: 
+        - Notes:
+            - Gaussian NB took a while to train 
+            - consider using SMOTE to add more data
+            - SVR takes the longest to converge
+    - Prod1:
+        - model: Random Forest Regressor
+        - Training Set Random Forest RMSE:  2223.8222531971437
+        - Test Set Random Forest RMSE:  6077.665385220514
+        - Production Model Random Forest RMSE:  2241.0825098458313
+        - Notes:
+            - production model was trained using all of the data
+            - production model was pickled for deployment
+
+Modeling Notes (5-3-23):
+    - this is for the newest dataset
+    - Training Set Random Forest RMSE:  5693.157678974624
+    - Test Set Random Forest RMSE:  7377.013848753516
+    - Production Model Random Forest RMSE:  5741.994528483657
+    
