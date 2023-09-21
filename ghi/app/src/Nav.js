@@ -21,7 +21,7 @@ function Navigation() {
 	return (
 		<Navbar bg="success" expand="lg" variant="dark">
 			<Navbar.Brand as={NavLink} to="/" style={navStyle}>
-				Car.ai
+				CarAI
 			</Navbar.Brand>
 			<Navbar.Toggle aria-controls="navbarSupportedContent" />
 			<Navbar.Collapse id="navbarSupportedContent">
