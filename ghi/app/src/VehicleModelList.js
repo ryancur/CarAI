@@ -41,7 +41,7 @@ function VehicleModelList() {
         <table className="table table-striped">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Model</th>
                     <th>Manufacturer</th>
                     <th>Picture</th>
                 </tr>
