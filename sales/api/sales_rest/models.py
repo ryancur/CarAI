@@ -5,6 +5,7 @@ class AutomobileVO(models.Model):
     vin = models.CharField(unique=True, max_length=17)
     model_name = models.CharField(max_length=100, null=True)
     manufacturer_name = models.CharField(max_length=100, null=True)
+    suggested_value = models.DecimalField(max_digits=12, decimal_places=2, null=True)
 
 
 class Salesperson(models.Model):
@@ -36,4 +37,4 @@ class Sale(models.Model):
         related_name="sale",
         on_delete=models.PROTECT,
     )
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    sold_price = models.DecimalField(max_digits=12, decimal_places=2)

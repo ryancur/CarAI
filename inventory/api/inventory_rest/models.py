@@ -2,9 +2,9 @@ from django.db import models
 from django.urls import reverse
 
 
-class SuggestedPriceVO(models.Model):
+class SuggestedValueVO(models.Model):
     id = models.BigAutoField(primary_key=True)
-    suggested_price = models.DecimalField(max_digits=12, decimal_places=2)
+    suggested_value = models.DecimalField(max_digits=12, decimal_places=2)
 
 
 class Manufacturer(models.Model):
@@ -34,8 +34,8 @@ class Automobile(models.Model):
     vin = models.CharField(max_length=17, unique=True)
     sold = models.BooleanField(default=False)
 
-    price = models.ForeignKey(
-        SuggestedPriceVO,
+    suggested_value = models.ForeignKey(
+        SuggestedValueVO,
         related_name="automobiles",
         on_delete=models.CASCADE,
         null=True,
