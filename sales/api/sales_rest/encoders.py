@@ -46,5 +46,5 @@ class SaleListEncoder(ModelEncoder):
                 "address": o.customer.address,
                 "phone_number": o.customer.phone_number,
             },
-            "price": str(o.price),
+            "sold_price": str(o.sold_price),
         }
