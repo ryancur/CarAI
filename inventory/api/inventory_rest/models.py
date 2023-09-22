@@ -3,7 +3,6 @@ from django.urls import reverse
 
 
 class SuggestedValueVO(models.Model):
-    id = models.BigAutoField(primary_key=True)
     suggested_value = models.DecimalField(max_digits=12, decimal_places=2)
 
 
