@@ -14,7 +14,7 @@ from inventory_rest.models import SuggestedPriceVO
 
 
 def get_automobiles():
-    response = requests.get("http://project-beta-inventory-api-1:8000/api/automobiles/")
+    response = requests.get("http://carai-inventory-api-1:8000/api/automobiles/")
     content = json.loads(response.content)
     for price in content["price"]:
         SuggestedPriceVO.objects.update_or_create(
@@ -30,13 +30,14 @@ def poll(repeat=True):
         print("Inventory poller polling for data")
         try:
             get_automobiles()
+            print("INVENTORY poller success")
         except Exception as e:
             print(e, file=sys.stderr)
 
         if not repeat:
             break
 
-        time.sleep(60)
+        time.sleep(10)
 
 
 if __name__ == "__main__":

@@ -14,11 +14,9 @@ from sales_rest.models import AutomobileVO
 
 
 def get_automobiles():
-    response = requests.get("http://project-beta-inventory-api-1:8000/api/automobiles/")
+    response = requests.get("http://carai-inventory-api-1:8000/api/automobiles/")
     content = json.loads(response.content)
     for automobile in content["autos"]:
-        print("model_name: ", automobile["model"]["name"])
-        print("manufacturer_name: ", automobile["model"]["manufacturer"]["name"])
         AutomobileVO.objects.update_or_create(
             vin=automobile["vin"],
             model_name=automobile["model"]["name"],
@@ -34,13 +32,14 @@ def poll(repeat=True):
         print("Sales poller polling for data")
         try:
             get_automobiles()
+            print("SALES poller success")
         except Exception as e:
             print(e, file=sys.stderr)
 
         if not repeat:
             break
 
-        time.sleep(60)
+        time.sleep(10)
 
 
 if __name__ == "__main__":
