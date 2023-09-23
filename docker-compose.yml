@@ -1,5 +1,5 @@
 volumes:
-  beta-data:
+  carai-data:
     external: true
 services:
   react:
@@ -17,7 +17,7 @@ services:
   database:
     image: postgres:14.2-bullseye
     volumes:
-      - beta-data:/var/lib/postgresql/data
+      - carai-data:/var/lib/postgresql/data
       - ./db:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_MULTIPLE_DATABASES=inventory,sales,service,ml_service
