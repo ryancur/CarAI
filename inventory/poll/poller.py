@@ -13,6 +13,7 @@ django.setup()
 from inventory_rest.models import SuggestedPriceVO
 
 
+# this is template code for the poller to eventually get data from the ML service
 def get_automobiles():
     response = requests.get("http://carai-inventory-api-1:8000/api/automobiles/")
     content = json.loads(response.content)
