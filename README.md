@@ -1,6 +1,6 @@
 # CarAI
 
-Welcome to CarAI, the premiere solution for automobile dealership management! Let's get started right away. Follow the instructions in the section titled "How to Run the Application" immediately below. If you are interested in learning more about the project, the documentation can be found below the "How to Run the Application Section" and is titled "Project Documentation". The original project was a joint effort between my partner and I. I am currently updating the application.
+Welcome to CarAI, the premiere solution for automobile dealership management! Let's get started right away. Follow the instructions in the section titled "How to Run the Application" immediately below. If you are interested in learning more about the project, the documentation can be found below the "How to Run the Application Section" and is titled "Project Documentation". The original project was a joint effort between my partner and I and can be found on GitLab [here](https://gitlab.com/smalhadid/carai). I am currently making tweaks and updates to a forked version of the application.
 
 ## How to Run the Application
 
