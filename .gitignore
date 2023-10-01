@@ -162,6 +162,5 @@ cython_debug/
 # do not send CSV files
 *.csv
 
-# do not send data science files
-*.pkl
+# vscode settings
 .vscode
